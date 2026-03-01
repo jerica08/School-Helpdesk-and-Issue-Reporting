@@ -17,35 +17,33 @@ class CreateUsersTable extends Migration
             ],
             'name' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'       => false,
+                'constraint' => 100,
             ],
             'email' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'       => false,
+                'constraint' => 150,
                 'unique'     => true,
             ],
             'password' => [
                 'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'       => false,
+                'constraint' => 255,
             ],
             'role' => [
-                'type'       => "ENUM('student', 'staff', 'admin')",
+                'type'       => 'ENUM',
+                'constraint' => ['student', 'staff', 'admin'],
                 'default'    => 'student',
-                'null'       => false,
             ],
-            'created_at' => [
-                'type' => 'DATETIME',
-                'null' => false,
+            'department_id' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'unsigned'   => true,
+                'null'       => true, 
             ],
-            'updated_at' => [
-                'type' => 'DATETIME',
-                'null' => false,
-            ],
+            'created_at DATETIME default current_timestamp',
+            'updated_at DATETIME default current_timestamp on update current_timestamp'
         ]);
-        $this->forge->addKey('id', true);
+
+        $this->forge->addKey('id', true); 
         $this->forge->createTable('users');
     }
 
